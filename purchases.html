@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Purchased Ideas</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+.container{
+padding:60px 10%;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+}
+
+.price{
+color:#38bdf8;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Purchased Ideas</h1>
+
+<div class="grid" id="purchasedContainer"></div>
+
+</div>
+
+<script>
+
+let purchased = JSON.parse(localStorage.getItem("purchasedIdeas")) || [];
+
+let container = document.getElementById("purchasedContainer");
+
+purchased.forEach(function(idea){
+
+let card=document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+<h3>${idea.title}</h3>
+<p>${idea.desc}</p>
+<p class="price">₹${idea.price}</p>
+`;
+
+container.appendChild(card);
+
+});
+
+</script>
+
+</body>
+</html>

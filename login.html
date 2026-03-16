@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>User Login</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.box{
+background:#1e293b;
+padding:40px;
+border-radius:10px;
+width:300px;
+text-align:center;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:5px;
+}
+
+button{
+margin-top:15px;
+padding:10px;
+width:100%;
+background:#38bdf8;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Login / Register</h2>
+
+<input type="text" id="username" placeholder="Username">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="register()">Register</button>
+
+<button onclick="login()">Login</button>
+
+</div>
+
+<script>
+
+function register(){
+
+let username=document.getElementById("username").value;
+let password=document.getElementById("password").value;
+
+let users=JSON.parse(localStorage.getItem("users")) || [];
+
+users.push({username:username,password:password});
+
+localStorage.setItem("users",JSON.stringify(users));
+
+alert("Account created!");
+
+}
+
+function login(){
+
+let username=document.getElementById("username").value;
+let password=document.getElementById("password").value;
+
+let users=JSON.parse(localStorage.getItem("users")) || [];
+
+let found=users.find(function(user){
+return user.username===username && user.password===password;
+});
+
+if(found){
+
+localStorage.setItem("loggedUser",username);
+
+alert("Login successful!");
+
+window.location.href="index.html";
+
+}else{
+
+alert("Invalid login");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

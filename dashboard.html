@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Seller Dashboard</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+.container{
+padding:60px 10%;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+}
+
+.price{
+color:#38bdf8;
+font-weight:bold;
+}
+
+button{
+padding:10px 15px;
+background:#ef4444;
+border:none;
+border-radius:5px;
+cursor:pointer;
+margin-top:10px;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>My Ideas</h1>
+
+<div class="grid" id="ideasContainer"></div>
+
+</div>
+
+<script>
+
+let ideas = JSON.parse(localStorage.getItem("ideas")) || [];
+
+let container = document.getElementById("ideasContainer");
+
+function showIdeas(){
+
+container.innerHTML="";
+
+ideas.forEach(function(idea,index){
+
+let card=document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+
+<h3>${idea.title}</h3>
+
+<p>${idea.desc}</p>
+
+<p class="price">₹${idea.price}</p>
+
+<button onclick="editIdea(${index})">Edit</button>
+<button onclick="deleteIdea(${index})">Delete</button>
+
+`;
+container.appendChild(card);
+
+});
+
+}
+
+function deleteIdea(index){
+
+ideas.splice(index,1);
+
+localStorage.setItem("ideas",JSON.stringify(ideas));
+
+showIdeas();
+
+}
+function editIdea(index){
+
+let newTitle = prompt("Edit Title", ideas[index].title);
+
+let newDesc = prompt("Edit Description", ideas[index].desc);
+
+let newPrice = prompt("Edit Price", ideas[index].price);
+
+ideas[index].title = newTitle;
+ideas[index].desc = newDesc;
+ideas[index].price = newPrice;
+
+localStorage.setItem("ideas", JSON.stringify(ideas));
+
+showIdeas();
+
+}
+showIdeas();
+
+</script>
+
+</body>
+</html>

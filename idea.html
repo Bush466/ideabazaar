@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Idea Details</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+.container{
+padding:80px 10%;
+display:flex;
+justify-content:center;
+}
+
+.card{
+background:#1e293b;
+padding:40px;
+border-radius:10px;
+max-width:600px;
+width:100%;
+}
+
+.price{
+color:#38bdf8;
+font-size:20px;
+font-weight:bold;
+}
+
+button{
+padding:12px 20px;
+background:#38bdf8;
+border:none;
+border-radius:5px;
+cursor:pointer;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h2 id="title"></h2>
+
+<p id="desc"></p>
+
+<p id="category"></p>
+
+<p class="price" id="price"></p>
+
+<button onclick="buyIdea()">Buy Idea</button>
+
+</div>
+
+</div>
+
+<script>
+
+let idea = JSON.parse(localStorage.getItem("selectedIdea"));
+
+if(idea){
+
+document.getElementById("title").innerText = idea.title;
+
+document.getElementById("desc").innerText = idea.desc;
+
+document.getElementById("category").innerText = "Category: " + idea.category;
+
+document.getElementById("price").innerText = "₹" + idea.price;
+
+}
+
+function buyIdea(){
+
+let purchased = JSON.parse(localStorage.getItem("purchasedIdeas")) || [];
+
+purchased.push(idea);
+
+localStorage.setItem("purchasedIdeas", JSON.stringify(purchased));
+
+alert("Idea purchased successfully!");
+
+}
+
+</script>
+
+</body>
+</html>

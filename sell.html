@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sell Idea - IdeaBazaar</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 10%;
+background:#020617;
+}
+
+.logo{
+color:#38bdf8;
+font-size:22px;
+font-weight:bold;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+gap:25px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+}
+
+.container{
+padding:60px 10%;
+}
+
+form{
+background:#1e293b;
+padding:30px;
+border-radius:10px;
+max-width:500px;
+}
+
+input, textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:5px;
+}
+
+button{
+padding:12px 20px;
+background:#38bdf8;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">IdeaBazaar</div>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="explore.html">Explore</a></li>
+<li><a href="login.html">Login</a></li>
+</ul>
+
+</nav>
+
+<div class="container">
+
+<h2>Sell Your Idea</h2>
+
+<form id="ideaForm"> 
+
+<input type="text" id="title" placeholder="Idea Title" required>
+
+<textarea id="description" placeholder="Describe your idea..." required></textarea>
+
+<input type="number" id="price" placeholder="Price ₹" required>
+<input type="file" id="image">
+<button onclick="submitIdea()">Submit</button>
+<select id="category">
+    
+
+<option>Business</option>
+<option>Technology</option>
+<option>App</option>
+<option>AI</option>
+<option>Startup</option>
+
+</select>
+
+<input type="file" id="image">
+
+<button type="submit">Submit Idea</button>
+
+</form>
+
+</div>
+<script>
+
+function submitIdea(){
+
+let title=document.getElementById("title").value;
+let desc=document.getElementById("desc").value;
+let category=document.getElementById("category").value;
+let price=document.getElementById("price").value;
+
+let imageInput=document.getElementById("image");
+let file=imageInput.files[0];
+
+let reader=new FileReader();
+
+reader.onload=function(){
+
+let ideas=JSON.parse(localStorage.getItem("ideas"))||[];
+
+ideas.push({
+title:title,
+desc:desc,
+category:category,
+price:price,
+image:reader.result
+});
+
+localStorage.setItem("ideas",JSON.stringify(ideas));
+
+alert("Idea Added!");
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+</script>
+
+</body>
+</html>
